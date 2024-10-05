@@ -5,7 +5,10 @@ edition = "2021"
 keywords = ["cli", "localise", "localise.biz"]
 categories = ["command-line-utilities"]
 readme = "README.md"
-
+description = "A tool to manage translations with Localise.biz API"
+license = "MIT OR Apache-2.0"
+authors = ["Orfeas Voutsaridis <erevos13@gmail.com>"]
+repository = "https://github.com/erevos-13/loco-cli-rust"
 
 [dependencies]
 clap = { version = "4.5.19", features = ["derive"] }
