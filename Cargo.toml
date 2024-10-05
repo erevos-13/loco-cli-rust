@@ -2,7 +2,7 @@
 name = "loco-cli"
 version = "0.1.0"
 edition = "2021"
-keywords = ["cli", "localise", "localise.biz"]
+keywords = ["cli", "localise", "localization", "translation"]
 categories = ["command-line-utilities"]
 readme = "README.md"
 description = "A tool to manage translations with Localise.biz API"
