@@ -1,0 +1,36 @@
+/target
+/output.json
+# Rust specific
+**/*.rs.bk
+Cargo.lock
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+/debug/
+/release/
+
+# Dependency directories
+/vendor/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
