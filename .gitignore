@@ -34,3 +34,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+
+./test.json
+./translate.json

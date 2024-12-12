@@ -1,5 +1,5 @@
-// ... existing code...
-pub mod models {
+pub mod loco {
+    use serde::{Deserialize, Serialize};
 
     #[derive(Debug, serde::Serialize, serde::Deserialize)]
     pub struct Author {
@@ -18,10 +18,10 @@ pub mod models {
     #[derive(Debug, serde::Serialize, serde::Deserialize)]
     pub struct Locale {
         code: String,
-        name: String,
-        source: bool,
-        plurals: Plurals,
-        progress: Progress,
+        pub name: String,
+        pub source: bool,
+        pub plurals: Plurals,
+        pub progress: Progress,
     }
 
     #[derive(Debug, serde::Serialize, serde::Deserialize)]
@@ -75,6 +75,31 @@ pub mod models {
         pub message: String,      // Summary of import result
         pub locales: Vec<Locale>, // List of locales
     }
-}
 
-// ... existing code ...
+    #[derive(Debug, Serialize, Deserialize)]
+    pub struct LocaleInfo {
+        pub code: String,
+        pub name: String,
+        #[serde(default)]
+        pub source: bool,
+        #[serde(default)]
+        pub native: bool,
+        pub plurals: PluralInfo,
+        pub progress: ProgressInfo,
+    }
+
+    #[derive(Debug, Serialize, Deserialize)]
+    pub struct PluralInfo {
+        pub length: u8,
+        pub equation: String,
+        pub forms: Vec<String>,
+    }
+
+    #[derive(Debug, Serialize, Deserialize)]
+    pub struct ProgressInfo {
+        pub translated: u32,
+        pub untranslated: u32,
+        pub flagged: u32,
+        pub words: u32,
+    }
+}
