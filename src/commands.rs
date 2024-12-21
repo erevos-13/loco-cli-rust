@@ -19,6 +19,8 @@ pub struct Args {
     pub get: Option<bool>,
     #[arg(short, long)]
     pub source: Option<String>,
+    #[arg(short = 'x', long)]
+    pub extract_all: Option<bool>,
 }
 
 #[derive(Debug, Subcommand, Clone)]

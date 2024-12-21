@@ -17,9 +17,10 @@ pub mod loco {
 
     #[derive(Debug, serde::Serialize, serde::Deserialize)]
     pub struct Locale {
-        code: String,
+        pub code: String,
         pub name: String,
         pub source: bool,
+        pub native: bool,
         pub plurals: Plurals,
         pub progress: Progress,
     }
