@@ -35,6 +35,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let locale = args.locale;
     let export_path = args.export_path;
     let filters = args.filters;
+    let token = args.token;
     let post = args.post.unwrap_or(true);
     let get = args.get.unwrap_or(true);
     let source = args.source.unwrap_or(String::from(""));
@@ -47,9 +48,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         _ => String::from(""),
     };
 
+    if token.is_empty() {
+        panic!("Please provide a token from the project. to work this cli")
+    }
+
     if post {
         pb.set_length(1);
-        let resp_post_data: ImportResponse = post_data(&path, &locale).await?;
+        let resp_post_data: ImportResponse = post_data(&path, &locale, &token).await?;
         for locale in resp_post_data.locales {
             let msg = format!("We send {} the localise", locale.name);
             println!("{}", msg.green().bold());
@@ -59,7 +64,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     if extract_all {
         println!("{}", "Extract all locales".white().bold());
-        let resp_get_data = get_all_locales().await;
+        let resp_get_data = get_all_locales(&token).await;
         let all_locales = match resp_get_data {
             Err(_) => panic!("Error on extract all locale"),
             Ok(locales) => locales,
@@ -67,7 +72,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         pb.set_length(all_locales.len() as u64 - 1);
         for (i, locale) in all_locales.iter().enumerate() {
             pb.set_message(format!("Processing locale: {}", locale.code));
-            let resp_get_data = get_data(&locale.code, &filters_string, &source).await;
+            let resp_get_data = get_data(&locale.code, &filters_string, &source, &token).await;
             match resp_get_data {
                 Ok(data) => {
                     let msg = format!(
@@ -102,7 +107,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     if get {
         pb.set_length(1);
-        let resp_get_data = get_data(&locale, &filters_string, &source).await;
+        let resp_get_data = get_data(&locale, &filters_string, &source, &token).await;
         match resp_get_data {
             Ok(data) => {
                 println!("{}", "You get the data from localise".green().bold());
